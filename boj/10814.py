@@ -29,4 +29,4 @@ for a, b in user :
 #def age(x) :
 #    return int(x[0])
 
-# lambda x : 리턴 이니까 그냥 함수의 이름을 없앤다고 생각하면 될 듯 !
+# lambda x : 리턴 이니까 그냥 함수의 이름을 없앤다고 생각하면 될 듯 !!
