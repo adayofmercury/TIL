@@ -8,7 +8,7 @@ v = []
 for _ in range(n) :
     v.append(tuple(map(int,input().split())))
 
-v.sort(key = lambda x : (x[0], x[1]))
+v.sort(key = lambda x : (x[1], x[0]))
 
 ######################################
 #line 11 ==
