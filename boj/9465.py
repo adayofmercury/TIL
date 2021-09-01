@@ -2,24 +2,36 @@ import sys
 
 input = sys.stdin.readline
 
-for t in range(int(input())) :
-    n = int(input())
-    li = []
-    for _ in range(2) :
-        li.append(list(map(int,input().split())))   
+for T in range(int(input())) :
 
-    if n == 1 :
-        max(li[0][0], li[0][1])
-    elif n == 2 :
-        max(li[0][0]+li[1][1], li[1][0]+li[0][1])
-    else :
-        li[0][1] += li[1][0]
-        li[1][1] += li[0][0]
-        for i in range(2,n) :
-            for j in range(2) :
-                if j == 0 :
-                    li[j][i] = max(li[j][i]+li[1][i-1],li[j][i]+li[1][i-2])
-                elif j == 1 :
-                    li[j][i] = max(li[j][i]+li[0][i-1],li[j][i]+li[0][i-2])
-    #print(li)
-    print(max(li[0][-1],li[0][-2],li[1][-1],li[0][-2]))
+    sticker = []
+    cols = int(input())
+    for rows in range(2) :
+        sticker.append(list(map(int,input().split())))
+
+    for i in range(cols) :
+        for j in range(2) :
+
+            a,b,c = 0,0,0
+
+            if j == 0:
+
+                if i-2 >= 0: a = sticker[j][i-2] 
+                if i-2 >= 0: b = sticker[1][i-2] 
+                if i-1 >= 0: c = sticker[1][i-1]
+
+                tmp = sticker[j][i]
+
+                sticker[0][i] = max(tmp+a, tmp+b, tmp+c)
+
+            elif j == 1:
+
+                if i-2 >= 0: a = sticker[j][i-2]
+                if i-2 >= 0: b = sticker[0][i-2]
+                if i-1 >= 0: c = sticker[0][i-1]
+
+                tmp = sticker[j][i]
+
+                sticker[1][i] = max(tmp+a, tmp+b, tmp+c)
+
+    print(max(sticker[0][cols - 1],sticker[1][cols - 1]))
