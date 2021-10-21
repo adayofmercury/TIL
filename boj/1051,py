@@ -1,0 +1,78 @@
+'''
+N*M 크기의 직사각형이 있다.
+각 칸은 한 자리 숫자가 적혀있다.
+이 직사각형에서 꼭짓점에 쓰여있는 수가 모두 같은 가장 큰 정사각형을 찾는 프로그램을 작성
+이때 정사각형은 행 또는 열에 평행해야한다
+
+첫째 줄에 N과 M이 주어진다. N과 M은 50보다 작거나 같은 자연수이다. 둘째 줄부터 N개의 줄의 수
+
+3 5
+42101
+22100
+22101
+
+4 4
+2002
+0000
+0000
+2002
+
+9
+
+정사각형의 꼭짓점이 모두 같은 숫자임
+
+하나씩 체크할건데 절반까지만 가면된다 일단
+
+내가 0번째에 있으면 가장 멀리있는건 n과 m중 작은 값
+거기서부터 시작
+그리고 하나씩 작아짐
+
+내 가로나 세로 위치 - n과 m 중 작은 값이 0이면 그쪽으로는 그만가도 됨
+
+따라서 일단 n과 m을 비교함
+
+일단 가장 작은게 3이니까 3부터 비교함
+
+0,0 에서 3 2 1 더하면서 나랑 같은게 있는지 확인
+
+제일 큰걸 찾아야되니까 쭉 비교하고 없으면 2 1 이런식으로 가는게 맞는듯
+
+그럼 tmp = small_value임 일단
+
+순회할때는 smll_value 를 1씩 줄여줌
+
+찾으면 break 하고 ans = small_value ** 2
+
+'''
+import sys
+
+input = sys.stdin.readline
+
+n, m = map(int,input().split())
+li = []
+
+ans = 1 # 초기값 설정
+isPrintedValue = False
+candidateLength = n if n <= m else m #삼항연산자
+
+for _ in range(n) :
+    tmp = input()
+    li.append(tmp)
+
+while candidateLength >= 1 :
+    for i in range(n) :
+        if i + candidateLength < n :
+            for j in range(m) :
+                if j + candidateLength < m :
+                    currentValue = li[i][j]
+                    dx = i + candidateLength
+                    dy = j + candidateLength
+                    if li[dx][j] == currentValue and li[i][dy] == currentValue and li[dx][dy] == currentValue :
+                        print((candidateLength+1) ** 2)
+                        exit()   
+        else :
+            break
+
+    candidateLength -= 1
+
+print(1)
